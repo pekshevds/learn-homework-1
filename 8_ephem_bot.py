@@ -39,7 +39,7 @@ def greet_user(update, context):
     print(text)
     update.message.reply_text(text)
 
-def get_planet_info(update, context):
+def show_planet_info(update, context):
     
     update.message.reply_text("input a value of [mars, moon, mercury, jupiter, venus, saturn, sun]")
 
@@ -76,7 +76,7 @@ def main():
 
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
-    dp.add_handler(CommandHandler("planet", get_planet_info))
+    dp.add_handler(CommandHandler("planet", show_planet_info))
     dp.add_handler(MessageHandler(Filters.text, talk_to_me))
 
     mybot.start_polling()
