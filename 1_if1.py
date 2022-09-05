@@ -14,12 +14,31 @@
 
 """
 
+def determine_occupation(age):
+    """
+    Функция определяет занятие человека по его возрасту
+    """
+    if 1 <= age < 7:
+      occupation = 'Учится в детском саду'
+    elif 7 <= age < 19:
+      occupation = 'Учится в школе'
+    elif 19 <= age < 24:
+      occupation = 'Учится в ВУЗе'
+    else:
+      occupation = 'Работает'
+  
+    return occupation
+
+
 def main():
     """
     Эта функция вызывается автоматически при запуске скрипта в консоли
     В ней надо заменить pass на ваш код
     """
-    pass
+    age = int(input("Введите ваш возраст:"))
+    occupation = determine_occupation(age)
+    print(occupation)
+
 
 if __name__ == "__main__":
     main()

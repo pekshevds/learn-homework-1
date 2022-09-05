@@ -21,7 +21,19 @@ def ask_user(answers_dict):
     """
     Замените pass на ваш код
     """
-    pass
+    questions_and_answers['как дела?'] = 'Хорошо'
+    questions_and_answers['мороженое будешь?'] = 'Ато!'
+    questions_and_answers['как тебе сегодня погода?'] = 'А пивом сойдет'
+    questions_and_answers['когда едем на рыбалку?'] = 'После дождичка, в четверг'
+    questions_and_answers['вечером по пиву треснем?'] = 'Неси, я за добавкой побежала'
+
+    answer = ''
+    while answer.lower() != 'пока':
+
+      question = input('Пользователь: ')
+      print('Программа: ', questions_and_answers.get(question.lower(), 'Я х.з. о чем ты говоришь...'))
+
+      answer = input('ну пока? ') 
     
 if __name__ == "__main__":
     ask_user(questions_and_answers)

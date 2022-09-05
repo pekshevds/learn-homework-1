@@ -13,8 +13,12 @@
 
 """
 import logging
-
+import ephem
+from datetime import date
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+
+from local_settings import telegram_bot_token
+
 
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
@@ -35,18 +39,44 @@ def greet_user(update, context):
     print(text)
     update.message.reply_text(text)
 
+def get_planet_info(update, context):
+    
+    update.message.reply_text("input a value of [mars, moon, mercury, jupiter, venus, saturn, sun]")
+
 
 def talk_to_me(update, context):
     user_text = update.message.text
-    print(user_text)
-    update.message.reply_text(text)
+
+
+    if user_text.lower() == 'mars':
+        planet = ephem.Mars()
+    elif user_text.lower() == 'moon':
+        planet = ephem.Moon()
+    elif user_text.lower() == 'mercury':
+        planet = ephem.Mercury()
+    elif user_text.lower() == 'jupiter':
+        planet = ephem.Jupiter()
+    elif user_text.lower() == 'venus':
+        planet = ephem.Venus()
+    elif user_text.lower() == 'saturn':
+        planet = ephem.Saturn()
+    elif user_text.lower() == 'sun':
+        planet = ephem.Sun()
+    else:
+        update.message.reply_text('unknoun planet')
+        return
+
+    planet.compute(date.today())
+    update.message.reply_text(str(ephem.constellation(planet)[1]))
 
 
 def main():
-    mybot = Updater("КЛЮЧ, КОТОРЫЙ НАМ ВЫДАЛ BotFather", request_kwargs=PROXY, use_context=True)
+    #mybot = Updater(telegram_bot_token, request_kwargs=PROXY, use_context=True)
+    mybot = Updater(telegram_bot_token, use_context=True)
 
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
+    dp.add_handler(CommandHandler("planet", get_planet_info))
     dp.add_handler(MessageHandler(Filters.text, talk_to_me))
 
     mybot.start_polling()
@@ -55,3 +85,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
