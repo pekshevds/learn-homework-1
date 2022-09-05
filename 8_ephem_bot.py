@@ -63,7 +63,7 @@ def talk_to_me(update, context):
     elif user_text.lower() == 'sun':
         planet = ephem.Sun()
     else:
-        update.message.reply_text('unknoun planet')
+        update.message.reply_text('unknown planet')
         return
 
     planet.compute(date.today())
